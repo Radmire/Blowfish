@@ -1,25 +1,35 @@
+/////////////////////////////////////////////////////////////////////
+//File: Blowfish.cpp                                               //
+//Programmer: Ryan Admire                                          //
+//Description: A variation of the Blowfish encryption algorithm.   //
+//             The program takes in one command line argument,     //
+//             a 16 bit hexadecimal key. It then reads the message //
+//             to be encrypted from standard input.                //
+/////////////////////////////////////////////////////////////////////
+
 #include <iostream>  //for input/output
-#include <string>    // for reading form standard input
+#include <string>    //for reading from standard input
 #include <sstream>   //for getting hex ascii values
-#include "blowfish_boxes.c"
+#include "blowfish_boxes.c"   //holds the p-arryas and s-boxes
 
 
-unsigned int F(unsigned int S);               //the function "F"
+unsigned int F(unsigned int S);                     //bit shifts the input sent to it
 void Encrypt(unsigned int *Lin, unsigned int *Rin); //encrypts the split plaintext 
 void Decrypt(unsigned int *Lin, unsigned int *Rin); //decrypts the split ciphertext
 
 using namespace std;
 
+//the body of the program. takes the key as a command line argument and reads the plaintext from standard input.
 int main(int argc, char* argv[]) {
 	
 	//VARIABLES
-	string key = argv[1];
+	string key = argv[1];   //store the whole key
 	unsigned long long K1 = stoll(key.substr(0,8), NULL, 16);  //stores the leftmost portion of the key as HEX
 	//stores the rightmost portion of the key as HEX
 	unsigned int long long K2 = stoll(key.substr(8, 8), NULL, 16);
 
 	string in;                  //will store the user input
-	string Lin = "", Rin = "";     //Left and Right strings
+	string Lin = "", Rin = "";  //Left and Right strings
 	unsigned int L;     //stores the left piece of the plaintext
 	unsigned int R;     //stores the right piece of the plaintext
 
